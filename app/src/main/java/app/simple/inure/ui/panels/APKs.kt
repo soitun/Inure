@@ -371,6 +371,20 @@ class APKs : ScopedFragment() {
         }
     }
 
+    override fun onBackPressed() {
+        try {
+            if (adapterApks.isSelectionMode) {
+                adapterApks.isSelectionMode = false
+                adapterApks.notifyItemRangeChanged(1, adapterApks.paths.size)
+                updateBottomMenu()
+            } else {
+                super.onBackPressed()
+            }
+        } catch (e: UninitializedPropertyAccessException) {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         fun newInstance(): APKs {
             val args = Bundle()
